@@ -41,7 +41,7 @@ public class AffiliatesAppsProvider {
 		//Get title
 		final String _TitleResourceName = "affiliate_app_title_" + _FormattedPackageName;
 		int _ResId = aResources.getIdentifier( _TitleResourceName , "string", aPackagename);
-		_Result.setDescription(aResources.getString(_ResId));
+		_Result.setTitle(aResources.getString(_ResId));
 		
 		//Get description
 		final String _DescriptionResourceName = "affiliate_app_description_" + _FormattedPackageName;
