@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.widget.ListView;
 
 import com.cubeactive.affiliateslibrary.AffiliatesApp;
 import com.cubeactive.affiliateslibrary.AffiliatesAppsAdapter;
@@ -28,7 +29,10 @@ public class MainActivity extends Activity {
 				return MainActivity.this.getLayoutInflater();
 			}
 		};
-		//TODO: Connect adapter to a listview
+		
+		//Connect adapter to the list view
+		final ListView _List = (ListView) findViewById(R.id.list);
+		_List.setAdapter(_AffiliatesAdapter);
 	}
 
 	@Override
