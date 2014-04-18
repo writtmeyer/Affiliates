@@ -217,7 +217,7 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
         protected void onPostExecute(final Bitmap result) {
             if (mTarget.getTag() == this) {
             	if (result != null) {
-            		mTarget.setScaleType(ImageView.ScaleType.CENTER_CROP);	
+            		mTarget.setScaleType(ImageView.ScaleType.CENTER);	
             		mTarget.setImageBitmap(result);
             	} else {
             		mTarget.setScaleType(ImageView.ScaleType.CENTER);	
