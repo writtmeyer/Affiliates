@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="affiliates_app_categories">
+        <item name="1">Productivity</item>
+        <item name="2">Shopping</item>
+        <item name="3">Business</item>        
+        <item name="4">Personalization</item>        
+	</string-array>
+</resources>

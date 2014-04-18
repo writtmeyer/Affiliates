@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<affiliates>
+    <app package="com.cubeactive.qnotelistfree" category="1" paid="0" type="1" />
+    <app package="com.cubeactive.qwishlistfree" category="2" paid="0" type="1" />
+    <app package="com.cubeactive.linearclockpro" category="4" paid="1" type="3" />    
+</affiliates>
