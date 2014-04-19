@@ -1,5 +1,7 @@
 package com.cubeactive.affiliateslibrary;
 
+import android.content.Context;
+
 public class AffiliatesApp {
 	private String mTitle = "";
 	private String mDescription = "";
@@ -90,5 +92,9 @@ public class AffiliatesApp {
 
 	public void setIsPaid(final boolean aIsPaid) {
 		this.mIsPaid = aIsPaid;
+	}
+	
+	public void openInGooglePlay(final Context context) {
+		//TODO: Add function to open the app page in Google Play.
 	}
 }

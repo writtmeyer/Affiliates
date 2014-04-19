@@ -98,4 +98,8 @@ public class AffiliatesAppsProvider {
 		return _Result;		
 	}
 
+	public static List<AffiliatesApp> getASyncAffiliatesApps(final Context context) {
+		//TODO: Add async function for loading a affiliates apps list.
+		return null;
+	}
 }
