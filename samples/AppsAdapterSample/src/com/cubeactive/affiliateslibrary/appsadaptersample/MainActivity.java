@@ -12,29 +12,26 @@ import com.cubeactive.affiliateslibrary.AffiliatesApp;
 import com.cubeactive.affiliateslibrary.AffiliatesAppsAdapter;
 import com.cubeactive.affiliateslibrary.AffiliatesAppsProvider;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AffiliatesAppsProvider.Callbacks {
 
-	private List<AffiliatesApp> _AffiliatesApps;
-	private AffiliatesAppsAdapter _AffiliatesAdapter;
+	private List<AffiliatesApp> mAffiliatesApps = null;
+	private AffiliatesAppsAdapter mAffiliatesAdapter = null;
+	private AffiliatesAppsProvider.GetAffiliatesAppsAsyncTask mAffiliatesAppsAsyncTask = null;
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		_AffiliatesApps = AffiliatesAppsProvider.getAffiliatesApps(this);
-		_AffiliatesAdapter = new AffiliatesAppsAdapter(this, R.layout.affiliatesapp_listitem, _AffiliatesApps) {
-			
-			@Override
-			protected LayoutInflater getLayoutInflater() {
-				return MainActivity.this.getLayoutInflater();
-			}
-		};
-		
-		//Connect adapter to the list view
-		final ListView _List = (ListView) findViewById(R.id.list);
-		_List.setAdapter(_AffiliatesAdapter);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		//Get affiliates apps list if it is not yet available
+		if (mAffiliatesApps == null)
+			mAffiliatesAppsAsyncTask = AffiliatesAppsProvider.getASyncAffiliatesApps(this, this);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -42,4 +39,40 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public void onAffiliatesAppsLoadFinished(final List<AffiliatesApp> aAffiliatesApps) {
+		//Check if task has not been canceled
+		if (mAffiliatesAppsAsyncTask == null)
+			return;
+		mAffiliatesAppsAsyncTask = null;
+		
+		mAffiliatesApps = aAffiliatesApps;
+		//Create adapter
+		if (mAffiliatesApps != null) {
+			mAffiliatesAdapter = new AffiliatesAppsAdapter(this, R.layout.affiliatesapp_listitem, mAffiliatesApps) {
+				
+				@Override
+				protected LayoutInflater getLayoutInflater() {
+					return MainActivity.this.getLayoutInflater();
+				}
+			};
+		} else {
+			mAffiliatesAdapter = null;
+		}
+		
+		//Connect adapter to the list view
+		final ListView _List = (ListView) findViewById(R.id.list);		
+		_List.setAdapter(mAffiliatesAdapter);
+		
+	}
+
+	@Override
+	protected void onPause() {
+		//Cancel async task if there is one running in the background 
+		if (mAffiliatesAppsAsyncTask != null) {
+			mAffiliatesAppsAsyncTask.cancel(true);
+			mAffiliatesAppsAsyncTask = null;			
+		}
+		super.onPause();
+	}
 }
