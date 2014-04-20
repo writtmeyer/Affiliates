@@ -1,5 +1,5 @@
 <resources>
-
     <string name="app_name">AffiliatesLibrary</string>
-    
+
+    <string name="message_could_not_open_app_page">Could not open Google Play, please install the Google Play app</string>
 </resources>

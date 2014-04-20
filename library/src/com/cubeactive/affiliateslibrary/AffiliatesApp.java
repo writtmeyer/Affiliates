@@ -1,6 +1,12 @@
 package com.cubeactive.affiliateslibrary;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.widget.Toast;
+
+import com.cubeactive.affiliates.R;
 
 public class AffiliatesApp {
 	private String mTitle = "";
@@ -93,8 +99,29 @@ public class AffiliatesApp {
 	public void setIsPaid(final boolean aIsPaid) {
 		this.mIsPaid = aIsPaid;
 	}
+
+	private static boolean startActivity(final Context context, final Intent aIntent) {
+        try {
+        	context.startActivity(aIntent);
+        	return true;
+        } catch (final ActivityNotFoundException e) {        	
+        	return false;
+        }    	
+		
+	}	
 	
 	public void openInGooglePlay(final Context context) {
-		//TODO: Add function to open the app page in Google Play.
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
+        //Try to open the app page in the Google Play app
+        intent.setData(Uri.parse("market://details?id=" + getPackageName()));
+        if (startActivity(context, intent) == false) {
+        	//Google Play app seems not installed, let's try to open a webbrowser
+            intent.setData(Uri.parse("https://play.google.com/store/apps/details?" + getPackageName()));
+            if (startActivity(context, intent) == false) {
+            	//Well if this also fails, we have run out of options, inform the user.
+                Toast.makeText(context, context.getString(R.string.message_could_not_open_app_page), Toast.LENGTH_SHORT).show();            	
+            }
+        }
 	}
+	
 }
