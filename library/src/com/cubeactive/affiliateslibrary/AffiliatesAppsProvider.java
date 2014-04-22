@@ -85,10 +85,15 @@ public class AffiliatesAppsProvider {
       	final int _resID = aResources.getIdentifier(AFFILIATES_XML, "xml", aPackagename);		
     	final XmlResourceParser _xml = aResources.getXml(_resID);
     	try {
+    		AffiliatesApp _Item;
             int eventType = _xml.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
             	if ((eventType == XmlPullParser.START_TAG) && (_xml.getName().equals("app"))){
-            		_Result.add(parseAppTag(_xml, aResources, aPackagename));      		
+            		_Item = parseAppTag(_xml, aResources, aPackagename);
+            		//Check if item matches current packagename, if so skip item to avoid 
+            		//displaying the current app in the list.
+            		if (!_Item.getPackageName().equals(aPackagename))
+            			_Result.add(_Item);      		
 	            }
             	eventType = _xml.next();
             }
