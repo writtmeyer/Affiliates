@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements AffiliatesAppsProvider.Cal
 		mAffiliatesApps = aAffiliatesApps;
 		//Create adapter
 		if (mAffiliatesApps != null) {
-			mAffiliatesAdapter = new AffiliatesAppsAdapter(this, R.layout.affiliatesapp_listitem_2, mAffiliatesApps) {
+			mAffiliatesAdapter = new AffiliatesAppsAdapter(this, R.layout.affiliatesapp_listitem, mAffiliatesApps) {
 				
 				@Override
 				protected LayoutInflater getLayoutInflater() {
