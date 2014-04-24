@@ -254,7 +254,7 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
 				public void onAnimationStart(final Animation animation) {
     	        }
     	    });
-        }
+        }        
     }
 
     
@@ -276,6 +276,6 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
                 return (aBitmap.getRowBytes() * aBitmap.getHeight()) / 1000;
             }
         }
-    }	
+    }        
 }   
 

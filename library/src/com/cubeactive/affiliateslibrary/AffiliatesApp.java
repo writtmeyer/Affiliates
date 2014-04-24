@@ -116,7 +116,7 @@ public class AffiliatesApp {
         intent.setData(Uri.parse("market://details?id=" + getPackageName()));
         if (startActivity(context, intent) == false) {
         	//Google Play app seems not installed, let's try to open a webbrowser
-            intent.setData(Uri.parse("https://play.google.com/store/apps/details?" + getPackageName()));
+            intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName()));
             if (startActivity(context, intent) == false) {
             	//Well if this also fails, we have run out of options, inform the user.
                 Toast.makeText(context, context.getString(R.string.message_could_not_open_app_page), Toast.LENGTH_SHORT).show();            	

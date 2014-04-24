@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.cubeactive.affiliateslibrary.AffiliatesApp;
@@ -22,6 +25,20 @@ public class MainActivity extends Activity implements AffiliatesAppsProvider.Cal
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		final ListView _List = (ListView) findViewById(R.id.list);
+		//Set on click listener for the list items.
+		_List.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+				if (mAffiliatesAdapter != null) {
+					//Open Google Play page for the clicked item.
+					final AffiliatesApp _AffiliatesApp = mAffiliatesAdapter.getItem(position);
+					if (!_AffiliatesApp.isHeader())
+						_AffiliatesApp.openInGooglePlay(MainActivity.this);
+				}
+			}			
+		});					
 	}
 
 	@Override
@@ -61,7 +78,7 @@ public class MainActivity extends Activity implements AffiliatesAppsProvider.Cal
 		}
 		
 		//Connect adapter to the list view
-		final ListView _List = (ListView) findViewById(R.id.list);		
+		final ListView _List = (ListView) findViewById(R.id.list);
 		_List.setAdapter(mAffiliatesAdapter);
 		
 	}
