@@ -14,7 +14,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" >
-    </ListView>
+        android:dividerHeight="0dp" 
+	    android:background="#e7e7e7"
+        android:listSelector="@android:color/transparent"
+        android:drawSelectorOnTop="true" />
 
 </RelativeLayout>
