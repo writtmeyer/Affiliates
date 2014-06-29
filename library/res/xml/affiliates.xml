@@ -4,4 +4,5 @@
     <app package="com.cubeactive.qwishlistfree" category="2" paid="0" type="1" developer="Cubeactive" />
     <app package="com.cubeactive.linearclockpro" category="4" paid="1" type="3" developer="Cubeactive" />
     <app package="com.jggc94.listacompras" category="2" paid="0" type="1" developer="Jggc94" />    
+    <app package="de.openminds.count_it" category="2" paid="0" type="1" developer="OpenMinds" />    
 </affiliates>

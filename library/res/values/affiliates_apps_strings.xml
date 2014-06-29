@@ -10,4 +10,7 @@
 
     <string name="affiliate_app_title_com_jggc94_listacompras">Shopping List</string>
     <string name="affiliate_app_description_com_jggc94_listacompras">Shopping lists in no time</string>
+
+    <string name="affiliate_app_title_de_openminds_count_it">Count It!</string>
+    <string name="affiliate_app_description_de_openminds_count_it">Keep track of your habits and goals</string>
 </resources>
