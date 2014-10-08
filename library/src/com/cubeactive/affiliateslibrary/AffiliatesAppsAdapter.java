@@ -29,7 +29,6 @@ import com.cubeactive.affiliates.R;
 
 public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp> 
 {
-	//private final String TAG = "AffiliatesAppsAdapter";
 	protected int mSelectedIndex = -1;
 	private int mDefaultResource = -1;
     private AppIconCache mCache;
@@ -71,21 +70,15 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
 	protected abstract LayoutInflater getLayoutInflater();
 
 	private Boolean checkViewType(final View convertView, final int aItemType) {
-		//TODO: If the adapter reuses a view it will create a bug causing some tasks for loading the icons
-		//to be canceled or a view gets the wrong icon. To fix this return false here for now, this will
-		//make the adapter create a new view every time but it might be better to take a look at the issue
-		//later to see if we can get it to work correctly and let the adapter reuse it's views if possible.
-		return false;
-		
 		//The convertView might not be the correct one (updates to the adapter does not update cached
 		//views at position x. So when the item type from a position changes the adapter will recycle a
 		//wrong kind of view.
-//		switch (aItemType) {
-//		case 1:				
-//			return ((String) convertView.getTag()).equals("1");				
-//		default :
-//			return ((String) convertView.getTag()).equals("0");				
-//		}		
+		switch (aItemType) {
+		case 1:				
+			return ((String) convertView.getTag()).equals("1");				
+		default :
+			return ((String) convertView.getTag()).equals("0");				
+		}		
 	}
 	
 	@Override
@@ -129,7 +122,6 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
         // to new app icon
         final AppIconAsyncTask oldTask = (AppIconAsyncTask) _ImageViewIcon.getTag();
         if (oldTask != null) {
-            //Log.i(TAG, "Cancel old task");
             oldTask.cancel(false);
         }
 
@@ -137,10 +129,9 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
 	        // Cache enabled, try looking for cache hit, cache images are stored by their resource id.
 	        final Bitmap cachedResult = mCache.get(String.valueOf(_Item.getIcon()));
 	        if (cachedResult != null) {
-	             //Log.i(TAG, "cachedResult found");
+                _ImageViewIcon.setVisibility(View.VISIBLE);
 	        	_ImageViewIcon.setImageBitmap(cachedResult);
 	        } else {
-	            //Log.i(TAG, "starting async task");
 	        	//Icon is not available from cache, load the icon from the resource id.
 		        final AppIconAsyncTask task = new AppIconAsyncTask(_ImageViewIcon);
 		        _ImageViewIcon.setImageBitmap(null);
@@ -148,7 +139,6 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
 		        task.execute(_Item.getIcon());
 	        }
         } else {
-            //Log.i(TAG, "item has no icon");
         	_ImageViewIcon.setScaleType(ImageView.ScaleType.CENTER);	
         	_ImageViewIcon.setImageResource(R.drawable.ic_no_image);
         	_ImageViewIcon.setTag(null);        	
@@ -228,11 +218,9 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
         protected void onPostExecute(final Bitmap result) {
             if (mTarget.getTag() == this) {
             	if (result != null) {
-    	            //Log.i(TAG, "postExecute result != null");
             		mTarget.setScaleType(ImageView.ScaleType.CENTER);	
             		mTarget.setImageBitmap(result);
             	} else {
-    	            //Log.i(TAG, "postExecute result is null");
             		mTarget.setScaleType(ImageView.ScaleType.CENTER);	
             		mTarget.setImageResource(R.drawable.ic_no_image);
             	}
@@ -258,7 +246,6 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
     	    animation.setAnimationListener(new AnimationListener() {
     	        @Override
 				public void onAnimationEnd(final Animation animation) {    	        	
-    	            //Log.i(TAG, "Animation ended set imageview visible");
     	        	imageView.setVisibility(View.VISIBLE);
     	        }
     	        @Override
@@ -276,7 +263,7 @@ public abstract class AffiliatesAppsAdapter extends ArrayAdapter<AffiliatesApp>
      * Simple extension that uses Bitmap instances as keys, using their
      * memory footprint in bytes for sizing.
      */
-    private class AppIconCache extends LruCache<String, Bitmap> {
+    private static class AppIconCache extends LruCache<String, Bitmap> {
         public AppIconCache(final int maxSizeBytes) {
             super(maxSizeBytes);
         }
